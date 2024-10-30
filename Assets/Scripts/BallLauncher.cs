@@ -12,10 +12,12 @@ public class BallLauncher : MonoBehaviour
     [SerializeField]
     GameObject ball;
 
+    private Line line;
+
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        
+        line = GetComponent<Line>();
     }
 
     // Update is called once per frame
@@ -36,22 +38,29 @@ public class BallLauncher : MonoBehaviour
         }
     }
 
-    void DragStarted(Vector3 vector)
+    void DragStarted(Vector3 startVector)
     {
-        startPoint = vector;
+        startPoint = startVector;
+
+        line.SetStart(transform.position);
     }
 
-    void Dragging(Vector3 vector)
+    void Dragging(Vector3 endVector)
     {
-        endPoint = vector;
+        endPoint = endVector;
+
+        Vector3 direction = endPoint - startPoint;
+        line.SetEnd(transform.position - direction);
+
     }
 
     void DragStopped()
     {
         Vector3 direction = endPoint - startPoint;
+        direction.Normalize();
 
         var shoot = Instantiate(ball, transform.position, Quaternion.identity);
-        shoot.GetComponent<Rigidbody2D>().AddForce(-direction);
+        shoot.GetComponent<Rigidbody2D>().AddForce(-direction*1100);
     }
 
 }
