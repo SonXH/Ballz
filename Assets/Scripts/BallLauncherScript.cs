@@ -60,7 +60,7 @@ public class BallLauncher : MonoBehaviour
         direction.Normalize();
 
         var shoot = Instantiate(ball, transform.position, Quaternion.identity);
-        shoot.GetComponent<Rigidbody2D>().AddForce(-direction*1100);
+        shoot.GetComponent<Rigidbody2D>().AddForce(-direction * 750);
     }
 
 }

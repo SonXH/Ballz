@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class BallScript : MonoBehaviour
 {
+    [SerializeField]
+    private float moveSpeed = 10;
+
+    [SerializeField]
+    private Rigidbody2D rigidbody2d;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
 
     }
@@ -14,6 +19,6 @@ public class BallScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        rigidbody2d.velocity *= moveSpeed;
     }
 }
