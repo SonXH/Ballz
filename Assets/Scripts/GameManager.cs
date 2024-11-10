@@ -7,7 +7,6 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-
     private void Awake()
     {
         // If there is an instance, and it's not me, delete myself.
@@ -28,33 +27,43 @@ public class GameManager : MonoBehaviour
         Start,
         Shot,
         Pause,
-        Loss
+        Loss 
     }
-
-    // Start is called before the first frame update
-    void Start()
+    public void switchStates(int aas)
     {
-        
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void startGame()
     {
-        Debug.Log("starting");
+        Debug.Log("game started");
+        //can drag, ball launcher in use
+        //state to shooting
     }
 
-    public void endGame()
+    public void shooting()
     {
-        Debug.Log("ended");
+        Debug.Log("shooting balls");
+        //balls shooting, no drag 
+        //state to start until loss
+    }
+
+    public void endTurn()
+    {
+        Debug.Log("ending turn");
+        // blocks shifted down, blocks spawning 
+        //display switch to game over screen
+    }
+
+    public void gameover()
+    {
+        Debug.Log("maybe next time you are also in the winning team");
+        //display mean message
+        //options for restart
     }
 
     public void pauseGame()
     {
-        Debug.Log("pause");
+        Debug.Log("pee pause");
+        //display pause screen
+        //options resume and restart
     }
 }

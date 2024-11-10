@@ -16,7 +16,7 @@ public class GroundScript : MonoBehaviour
         {
             hitRB.velocity = new Vector3(0,0,0);
 
-            GameManager.Instance.endGame();
+            GameManager.Instance.gameover();
         }
     }
 }
