@@ -21,7 +21,7 @@ public class Ball : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        rigidbody2d.velocity *= moveSpeed;
+        rigidbody2d.velocity = rigidbody2d.velocity * moveSpeed;
     }
 
     //public void ballLanded()

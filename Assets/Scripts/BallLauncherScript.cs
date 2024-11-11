@@ -10,14 +10,14 @@ public class BallLauncher : MonoBehaviour
     private Vector3 endPoint;
 
     [SerializeField]
-    GameObject ball;
+    Ball ball;
 
     public int ballCount = 10;
 
     private Line line;
 
     private bool isLaunched = false;
-    private List<GameObject> balls = new List<GameObject>();
+    private List<Ball> balls = new List<Ball>();
     private Vector3 firstBallLandedPosition;
     private bool allBallsLanded = false;
 
@@ -78,26 +78,27 @@ public class BallLauncher : MonoBehaviour
     // Change to Coroutine
     void DragStopped()
     {
-        // Launch balls with delay using Coroutine
-        Vector3 direction = endPoint - startPoint;
-        direction.Normalize();
 
         // Start the Coroutine to launch the balls with delay
-        StartCoroutine(LaunchBallsWithDelay(direction));
+        StartCoroutine(LaunchBallsWithDelay());
     }
 
     // Coroutine to launch balls with delay
-    IEnumerator LaunchBallsWithDelay(Vector3 direction)
+    IEnumerator LaunchBallsWithDelay()
     {
-        for (int i = 0; i < ballCount; i++)
+        Vector3 direction = endPoint - startPoint;
+        direction.Normalize();
+
+        foreach (var ball in balls)
         {
-            var ballShot = Instantiate(ball, transform.position, Quaternion.identity);
-            ballShot.GetComponent<Rigidbody2D>().AddForce(-direction * 750);
-            balls.Add(ballShot);
+            //var ballShot = Instantiate(ball, transform.position, Quaternion.identity);
+            ball.GetComponent<Rigidbody2D>().AddForce(-direction * 750);
+            //balls.Add(ballShot);
 
             // Wait for the delay before launching the next ball
             yield return new WaitForSeconds(delay);
         }
+        //ballCount = 0;
     }
 
     public void EnableInput()
@@ -117,7 +118,7 @@ public class BallLauncher : MonoBehaviour
     {
         allBallsLanded = true;
 
-        foreach (GameObject ball in balls)
+        foreach (Ball ball in balls)
         {
             if (ball != null && ball.transform.position.y > 0.1f)
             {
@@ -144,7 +145,7 @@ public class BallLauncher : MonoBehaviour
 
     public void ClearBalls()
     {
-        foreach (GameObject ball in balls)
+        foreach (Ball ball in balls)
         {
             if (ball != null)
             {
