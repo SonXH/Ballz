@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class BallLauncher : MonoBehaviour
 {
@@ -22,6 +21,9 @@ public class BallLauncher : MonoBehaviour
     private Vector3 firstBallLandedPosition;
     private bool allBallsLanded = false;
 
+    private float delay = 0.1f;  // Delay in seconds
+
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -40,10 +42,12 @@ public class BallLauncher : MonoBehaviour
             {
                 DragStarted(worldPosition);
 
-            } else if (Input.GetMouseButton(0))
+            }
+            else if (Input.GetMouseButton(0))
             {
                 Dragging(worldPosition);
-            } else if (Input.GetMouseButtonUp(0))
+            }
+            else if (Input.GetMouseButtonUp(0))
             {
                 DragStopped();
             }
@@ -69,19 +73,30 @@ public class BallLauncher : MonoBehaviour
 
         Vector3 direction = endPoint - startPoint;
         line.SetEnd(transform.position - direction);
-
     }
 
+    // Change to Coroutine
     void DragStopped()
     {
+        // Launch balls with delay using Coroutine
         Vector3 direction = endPoint - startPoint;
         direction.Normalize();
 
+        // Start the Coroutine to launch the balls with delay
+        StartCoroutine(LaunchBallsWithDelay(direction));
+    }
+
+    // Coroutine to launch balls with delay
+    IEnumerator LaunchBallsWithDelay(Vector3 direction)
+    {
         for (int i = 0; i < ballCount; i++)
         {
             var ballShot = Instantiate(ball, transform.position, Quaternion.identity);
             ballShot.GetComponent<Rigidbody2D>().AddForce(-direction * 750);
             balls.Add(ballShot);
+
+            // Wait for the delay before launching the next ball
+            yield return new WaitForSeconds(delay);
         }
     }
 
@@ -140,5 +155,4 @@ public class BallLauncher : MonoBehaviour
         allBallsLanded = false; // Reset the flag for the next turn
         isLaunched = false; // Reset the launch flag for the next turn
     }
-
 }

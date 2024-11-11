@@ -25,6 +25,7 @@ public class ShootingState : IState
         if (ballLauncher.AllBallsLanded())
         {
             Vector3 firstBallPosition = ballLauncher.GetFirstLandedBallPosition();
+            Debug.Log(firstBallPosition);
             stateMachine.ChangeState(new EndState(stateMachine, firstBallPosition));
         }
     }

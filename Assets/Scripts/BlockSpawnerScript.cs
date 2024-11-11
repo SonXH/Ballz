@@ -25,7 +25,7 @@ public class BlockSpawner : MonoBehaviour
         
     }
 
-    public void SpawnBlock()
+    public void SpawnBlocks()
     {
         Debug.Log("I build these walls. Brick by Brick");
 

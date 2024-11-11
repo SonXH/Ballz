@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour
 
     public void gameover()
     {
-        Debug.Log("maybe next time you are also in the winning team");
+        //Debug.Log("maybe next time you are also in the winning team");
         //display mean message
         //options for restart
     }
