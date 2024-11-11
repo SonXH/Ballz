@@ -1249,16 +1249,16 @@ LineRenderer:
     colorGradient:
       serializedVersion: 2
       key0: {r: 1, g: 0.13679248, b: 0.20292617, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
-      key2: {r: 0, g: 0, b: 0, a: 0}
+      key1: {r: 1, g: 0.80450886, b: 0.8194862, a: 1}
+      key2: {r: 1, g: 1, b: 1, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
       key5: {r: 0, g: 0, b: 0, a: 0}
       key6: {r: 0, g: 0, b: 0, a: 0}
       key7: {r: 0, g: 0, b: 0, a: 0}
       ctime0: 0
-      ctime1: 65535
-      ctime2: 0
+      ctime1: 40285
+      ctime2: 65535
       ctime3: 0
       ctime4: 0
       ctime5: 0
@@ -1274,7 +1274,7 @@ LineRenderer:
       atime7: 0
       m_Mode: 0
       m_ColorSpace: 0
-      m_NumColorKeys: 2
+      m_NumColorKeys: 3
       m_NumAlphaKeys: 2
     numCornerVertices: 0
     numCapVertices: 0
@@ -1456,7 +1456,7 @@ GameObject:
   - component: {fileID: 2038106020}
   - component: {fileID: 2038106019}
   m_Layer: 0
-  m_Name: Spawner
+  m_Name: BlockSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1474,7 +1474,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c695a79aa767c4d0b84881ffef148ec5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blockprefab: {fileID: 0}
+  blockprefab: {fileID: 8743963619380316035, guid: 44518ac9ce67c4c1c83ef8e7d1b1cf99, type: 3}
 --- !u!4 &2038106020
 Transform:
   m_ObjectHideFlags: 0
