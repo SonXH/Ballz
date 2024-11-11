@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,14 +11,27 @@ public class BallLauncher : MonoBehaviour
     private Vector3 endPoint;
 
     [SerializeField]
-    GameObject ball;
+    Ball ballPrefab;
 
     private Line line;
 
-    // Start is called before the first frame update
+    private int ballCount = 3;
+    private List<Ball> balls = new List<Ball>();
+    private float delay = 0.1f;
+
     void Awake()
     {
         line = GetComponent<Line>();
+        for (int i = 0; i < ballCount; i++)
+        {
+            createBall();
+        }
+    }
+
+    private void PrepTurn()
+    {
+        createBall();
+
     }
 
     // Update is called once per frame
@@ -38,6 +52,16 @@ public class BallLauncher : MonoBehaviour
         }
     }
 
+    public int getBallCount() => ballCount;
+    
+    
+    public void createBall()
+    {
+        var ball = Instantiate(ballPrefab,transform.position,Quaternion.identity);
+        ballCount++;
+        balls.Add(ball);
+    }
+
     void DragStarted(Vector3 startVector)
     {
         startPoint = startVector;
@@ -56,11 +80,21 @@ public class BallLauncher : MonoBehaviour
 
     void DragStopped()
     {
+        StartCoroutine(LaunchBall());
+    }
+
+    private IEnumerator LaunchBall()
+    {
         Vector3 direction = endPoint - startPoint;
         direction.Normalize();
 
-        var shoot = Instantiate(ball, transform.position, Quaternion.identity);
-        shoot.GetComponent<Rigidbody2D>().AddForce(-direction * 750);
+
+        foreach (var ball in balls)
+        {
+            ball.GetComponent<Rigidbody2D>().AddForce(-direction * 750);
+            yield return new WaitForSeconds(delay);
+        }
     }
 
+    
 }

@@ -53,6 +53,8 @@ public class GameManager : MonoBehaviour
         //display switch to game over screen
     }
 
+
+
     public void gameover()
     {
         Debug.Log("maybe next time you are also in the winning team");
