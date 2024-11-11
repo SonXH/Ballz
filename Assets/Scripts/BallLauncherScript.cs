@@ -15,17 +15,22 @@ public class BallLauncher : MonoBehaviour
 
     private Line line;
 
-    private int ballCount = 3;
+    private int ballCount = 1;
     private List<Ball> balls = new List<Ball>();
     private float delay = 0.1f;
 
     void Awake()
     {
         line = GetComponent<Line>();
-        for (int i = 0; i < ballCount; i++)
-        {
-            createBall();
-        }
+        createBall();
+    }
+
+    private void Start()
+    {
+        //for (int i = 0; i < ballCount; i++)
+        //{
+        //    createBall();
+        //}
     }
 
     private void PrepTurn()
