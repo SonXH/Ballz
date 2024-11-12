@@ -25,9 +25,10 @@ public class BlockSpawner : MonoBehaviour
         
     }
 
-    private void SpawnBlock()
+    public void SpawnBlocks()
     {
-
+        Debug.Log("spawning");
+        
     }
 
     private void OnDrawGizmos()

@@ -34,7 +34,7 @@ public class BlockScript : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        ShiftBlock();
+        //ShiftBlock();
     }
 
 

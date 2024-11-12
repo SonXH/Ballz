@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class GroundScript : MonoBehaviour
+public class Ground : MonoBehaviour
 {
     BallLauncher ballLauncher;
-    private int hitCount;
+    private int hitCount = 0;
     private Vector3 firstHit;
 
     private void Awake()
     {
-        ballLauncher = GetComponent<BallLauncher>();
+        ballLauncher = FindObjectOfType<BallLauncher>();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -23,6 +23,7 @@ public class GroundScript : MonoBehaviour
         if(hitObject.name.Contains("Ball"))
         {
             hitRB.velocity = new Vector3(0,0,0);
+            //hitObject.SetActive(false);
             hitCount++;
             //GameManager.Instance.gameover();
         }
@@ -30,16 +31,18 @@ public class GroundScript : MonoBehaviour
         if(hitCount == 1)
         {
             firstHit =  hitObject.transform.position;
+            Debug.Log("first hit: " + firstHit);
         }
-
-        if(hitCount == ballLauncher.getBallCount())
+        Debug.Log(hitCount + "ball(s) hit the ground out of" + ballLauncher.getBallCount());
+        if (hitCount == ballLauncher.getBallCount())
         {
+            Debug.Log("all hit ground");
             //end turn
-            GameManager.Instance.endTurn();
+            GameManager.Instance.endTurn(firstHit);
         }
     }
 
-    public void ResethitCount()
+    public void ResetHitCount()
     {
         hitCount = 0;
     }

@@ -15,12 +15,15 @@ public class BallLauncher : MonoBehaviour
 
     private Line line;
 
-    private int ballCount = 1;
+    private int ballCount = 0;
     private List<Ball> balls = new List<Ball>();
     private float delay = 0.1f;
 
+    private bool allowDrag;
+
     void Awake()
     {
+        allowDrag = false;
         line = GetComponent<Line>();
         createBall();
     }
@@ -33,10 +36,15 @@ public class BallLauncher : MonoBehaviour
         //}
     }
 
-    private void PrepTurn()
+    public void PrepTurn(Vector3 launcherPos)
     {
+        Debug.Log("prepping");
         createBall();
-
+        transform.position = launcherPos;
+        foreach(var ball in balls)
+        {
+            ball.transform.position = launcherPos;
+        }
     }
 
     // Update is called once per frame
@@ -44,16 +52,20 @@ public class BallLauncher : MonoBehaviour
     {
         Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition) + Vector3.back * -10;
 
-        if (Input.GetMouseButtonDown(0))
+        if (allowDrag)
         {
-            DragStarted(worldPosition);
+            if (Input.GetMouseButtonDown(0))
+            {
+                DragStarted(worldPosition);
 
-        } else if (Input.GetMouseButton(0))
-        {
-            Dragging(worldPosition);
-        } else if (Input.GetMouseButtonUp(0))
-        {
-            DragStopped();
+            } else if (Input.GetMouseButton(0))
+            {
+                Dragging(worldPosition);
+
+            } else if (Input.GetMouseButtonUp(0) && startPoint != Vector3.zero && endPoint != Vector3.zero)
+            {
+                DragStopped();
+            }
         }
     }
 
@@ -85,7 +97,10 @@ public class BallLauncher : MonoBehaviour
 
     void DragStopped()
     {
+
         StartCoroutine(LaunchBall());
+        GameManager.Instance.shooting();
+
     }
 
     private IEnumerator LaunchBall()
@@ -94,6 +109,9 @@ public class BallLauncher : MonoBehaviour
         direction.Normalize();
 
 
+        //Debug.Log("boop");
+        //DisableDrag();
+
         foreach (var ball in balls)
         {
             ball.GetComponent<Rigidbody2D>().AddForce(-direction * 750);
@@ -101,5 +119,14 @@ public class BallLauncher : MonoBehaviour
         }
     }
 
-    
+    public void EnableDrag()
+    {
+        allowDrag = true;
+    }
+
+    public void DisableDrag()
+    {
+        allowDrag = false;
+    }
+
 }
