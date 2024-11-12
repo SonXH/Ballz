@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class BlockScript : MonoBehaviour
+public class Block : MonoBehaviour
 {
-    private int blockLives = 10;
+    private int blockLives;
     private TextMeshPro text;
 
 
@@ -13,7 +13,8 @@ public class BlockScript : MonoBehaviour
     void Awake ()
     {
         text = GetComponentInChildren<TextMeshPro>();
-
+        blockLives = GameManager.Instance.GetScore;
+        UpdateVisual();
     }
 
     // Update is called once per frame
@@ -34,12 +35,14 @@ public class BlockScript : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        //ShiftBlock();
     }
 
-
-    private void ShiftBlock()
+    public void SetBlockLives(int blockLives)
     {
-        transform.position -= new Vector3(0, 0.7f, 0);
+        this.blockLives = blockLives;
+        UpdateVisual() ;
     }
+
+
+
 }

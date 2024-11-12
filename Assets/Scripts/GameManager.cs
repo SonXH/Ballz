@@ -10,9 +10,12 @@ public class GameManager : MonoBehaviour
     private BallLauncher ballLauncher;
     private Ground ground;
     private BlockSpawner blockSpawner;
+    private int score;
 
     private void Awake()
     {
+        score = 1;
+
         // If there is an instance, and it's not me, delete myself.
         ballLauncher = FindFirstObjectByType<BallLauncher>();
         ground = FindObjectOfType<Ground>();
@@ -44,7 +47,7 @@ public class GameManager : MonoBehaviour
         blockSpawner.SpawnBlocks();
         ballLauncher.EnableDrag();
         
-        Debug.Log("game started: " + ballLauncher.getBallCount() + "to shoot");
+        Debug.Log("game started: " + ballLauncher.getBallCount() + " Ball to shoot");
         //can drag, ball launcher in use
         //state to shooting
     }
@@ -68,6 +71,8 @@ public class GameManager : MonoBehaviour
         ballLauncher.PrepTurn(firstHit);
         ground.ResetHitCount();
 
+
+        score++;
         startGame();
 
         // blocks shifted down, blocks spawning 
@@ -78,7 +83,7 @@ public class GameManager : MonoBehaviour
 
     public void gameover()
     {
-        Debug.Log("maybe next time you are also in the winning team");
+        Debug.Log("maybe next time you are also in the winning team. you loser losing like a never winning human being");
         //display mean message
         //options for restart
     }
@@ -89,4 +94,6 @@ public class GameManager : MonoBehaviour
         //display pause screen
         //options resume and restart
     }
+
+    public int GetScore => score;
 }

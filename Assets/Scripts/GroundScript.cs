@@ -20,9 +20,15 @@ public class Ground : MonoBehaviour
         GameObject hitObject = collision.gameObject;
         Rigidbody2D hitRB = hitObject.GetComponent<Rigidbody2D>();
 
-        if(hitObject.name.Contains("Ball"))
+        if (hitObject.name.Contains("Block"))
         {
-            hitRB.velocity = new Vector3(0,0,0);
+            GameManager.Instance.gameover();
+        }
+
+        if (hitObject.name.Contains("Ball"))
+        {
+            hitRB.velocity = Vector3.zero;
+            hitRB.angularVelocity = 0f;
             //hitObject.SetActive(false);
             hitCount++;
             //GameManager.Instance.gameover();

@@ -41,6 +41,9 @@ public class BallLauncher : MonoBehaviour
         Debug.Log("prepping");
         createBall();
         transform.position = launcherPos;
+
+        Vector3 newPos = new Vector3(launcherPos.x, -3.85f,  launcherPos.z);
+
         foreach(var ball in balls)
         {
             ball.transform.position = launcherPos;
@@ -97,7 +100,7 @@ public class BallLauncher : MonoBehaviour
 
     void DragStopped()
     {
-
+        line.HideLine();
         StartCoroutine(LaunchBall());
         GameManager.Instance.shooting();
 
@@ -114,7 +117,7 @@ public class BallLauncher : MonoBehaviour
 
         foreach (var ball in balls)
         {
-            ball.GetComponent<Rigidbody2D>().AddForce(-direction * 750);
+            ball.GetComponent<Rigidbody2D>().AddForce(-direction * 700);
             yield return new WaitForSeconds(delay);
         }
     }
