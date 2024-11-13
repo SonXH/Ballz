@@ -24,14 +24,17 @@ public class Ball : MonoBehaviour
     }
     private void Update()
     {
-        float absy = Mathf.Abs(rigidbody2d.velocity.y);
-        if(absy < 0.1f)
+        float absx = Mathf.Abs(rigidbody2d.velocity.x);
+        if(absx < 0.1f)
         {
             int chance = UnityEngine.Random.Range(1, 2);
 
-            float y = chance == 1 ? 0.1f : -0.1f;
+            
+            float x = chance == 1 ? 0.2f : -0.2f;
 
-            rigidbody2d.velocity.Set(rigidbody2d.velocity.x,y);
+            //float x = 0.1f;
+
+            rigidbody2d.velocity.Set(x, rigidbody2d.velocity.y);
         }
     }
 }

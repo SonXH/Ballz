@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        Canvas canvas = FindAnyObjectByType<Canvas>();
+      
         score = 1;
 
         // If there is an instance, and it's not me, delete myself.
@@ -92,8 +94,6 @@ public class GameManager : MonoBehaviour
         // blocks shifted down, blocks spawning 
         //display switch to game over screen
     }
-
-
 
     public void gameover()
     {
