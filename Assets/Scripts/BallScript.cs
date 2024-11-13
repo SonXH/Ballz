@@ -10,11 +10,12 @@ public class Ball : MonoBehaviour
     [SerializeField]
     private Rigidbody2D rigidbody2d;
 
+    BallLauncher launcher;
 
     // Start is called before the first frame update
     void Awake()
     {
-
+        launcher = FindAnyObjectByType<BallLauncher>();
     }
 
     // Update is called once per frame
@@ -24,17 +25,23 @@ public class Ball : MonoBehaviour
     }
     private void Update()
     {
-        float absx = Mathf.Abs(rigidbody2d.velocity.x);
-        if(absx < 0.1f)
+        //Debug.Log(rigidbody2d.velocity.y);
+        //Debug.Log(launcher.IsShooting());
+        float absy = Mathf.Abs(rigidbody2d.velocity.y);
+        
+        if (absy < 0.1f && launcher.IsShooting())
         {
+            Debug.Log("son");
+            
             int chance = UnityEngine.Random.Range(1, 2);
 
             
-            float x = chance == 1 ? 0.2f : -0.2f;
+            float y = chance == 1 ? 0.3f : -0.3f;
 
-            //float x = 0.1f;
+            //float y = 0.1f;
 
-            rigidbody2d.velocity.Set(x, rigidbody2d.velocity.y);
+            rigidbody2d.velocity = new Vector2(rigidbody2d.velocity.x, rigidbody2d.velocity.y + y);
         }
+        
     }
 }

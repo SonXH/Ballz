@@ -78,7 +78,7 @@ public class GameManager : MonoBehaviour
     {
 
         
-        Debug.Log("ending turn");
+        Debug.Log("turn ended");
 
         TimeController tc = FindAnyObjectByType<TimeController>();
         tc.Time1();

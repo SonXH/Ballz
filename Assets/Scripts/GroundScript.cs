@@ -43,7 +43,7 @@ public class Ground : MonoBehaviour
         if(hitCount == 1)
         {
             firstHit =  hitObject.transform.position;
-            Debug.Log("first hit: " + firstHit);
+            //Debug.Log("first hit: " + firstHit);
         }
         //Debug.Log(hitCount + "ball(s) hit the ground out of" + ballLauncher.getBallCount());
         if (hitCount == ballLauncher.getBallCount())

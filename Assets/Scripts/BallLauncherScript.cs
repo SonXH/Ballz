@@ -42,7 +42,7 @@ public class BallLauncher : MonoBehaviour
     public void PrepTurn(Vector3 launcherPos)
     {
         //Debug.Log("prepping");
-        createBall();
+        //createBall();
         transform.position = launcherPos;
 
         Vector3 newPos = new Vector3(launcherPos.x, -4f,  launcherPos.z);
@@ -80,7 +80,7 @@ public class BallLauncher : MonoBehaviour
     
     public void createBall()
     {
-        var ball = Instantiate(ballPrefab,transform.position,Quaternion.identity);
+        var ball = Instantiate(ballPrefab, transform.position, Quaternion.identity);
         ballCount++;
         balls.Add(ball);
     }
@@ -108,11 +108,11 @@ public class BallLauncher : MonoBehaviour
     {
   
         line.HideLine();
-        StartCoroutine(LaunchBall());
-        if (isShooting)
+        if (!isShooting)
         {
-            GameManager.Instance.shooting();
+            StartCoroutine(LaunchBall());
         }
+        
 
     }
 
@@ -121,14 +121,16 @@ public class BallLauncher : MonoBehaviour
         Vector3 direction = endPoint - startPoint;
         direction.Normalize();
 
+        GameManager.Instance.shooting();
         if(-direction.y > 0)
         {
-            isShooting = false;
+            isShooting = true;
             foreach (var ball in balls)
             {
                 ball.GetComponent<Rigidbody2D>().AddForce(-direction * 700);
                 yield return new WaitForSeconds(delay);
             }
+            isShooting = false;
         }
 
         //Debug.Log("boop");
@@ -150,5 +152,7 @@ public class BallLauncher : MonoBehaviour
     {
         allowDrag = false;
     }
+
+    public bool IsShooting() => isShooting;
 
 }
