@@ -28,7 +28,7 @@ public class BlockSpawner : MonoBehaviour
 
     public void SpawnBlocks()
     {
-        Debug.Log("spawning");
+        //Debug.Log("spawning");
 
         // Shift existing blocks down
         shiftBlocks();
@@ -57,6 +57,8 @@ public class BlockSpawner : MonoBehaviour
                 blocks.Add(block);
             }
         }
+
+        
     }
 
 
@@ -69,6 +71,11 @@ public class BlockSpawner : MonoBehaviour
             if (blocks != null)
             {
                 block.transform.position += Vector3.down * padding;
+
+                if(block.transform.position.y <= -3)
+                {
+                    GameManager.Instance.gameover();
+                }
             }
         }
     }

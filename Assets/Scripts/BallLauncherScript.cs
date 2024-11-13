@@ -21,11 +21,14 @@ public class BallLauncher : MonoBehaviour
 
     private bool allowDrag;
 
+    private bool isShooting;
+
     void Awake()
     {
         allowDrag = false;
         line = GetComponent<Line>();
         createBall();
+        isShooting = false;
     }
 
     private void Start()
@@ -38,11 +41,11 @@ public class BallLauncher : MonoBehaviour
 
     public void PrepTurn(Vector3 launcherPos)
     {
-        Debug.Log("prepping");
+        //Debug.Log("prepping");
         createBall();
         transform.position = launcherPos;
 
-        Vector3 newPos = new Vector3(launcherPos.x, -3.85f,  launcherPos.z);
+        Vector3 newPos = new Vector3(launcherPos.x, -4f,  launcherPos.z);
 
         foreach(var ball in balls)
         {
@@ -91,18 +94,25 @@ public class BallLauncher : MonoBehaviour
 
     void Dragging(Vector3 endVector)
     {
+        
         endPoint = endVector;
 
         Vector3 direction = endPoint - startPoint;
+
+        
         line.SetEnd(transform.position - direction);
 
     }
 
     void DragStopped()
     {
+  
         line.HideLine();
         StartCoroutine(LaunchBall());
-        GameManager.Instance.shooting();
+        if (isShooting)
+        {
+            GameManager.Instance.shooting();
+        }
 
     }
 
@@ -111,15 +121,24 @@ public class BallLauncher : MonoBehaviour
         Vector3 direction = endPoint - startPoint;
         direction.Normalize();
 
+        if(-direction.y > 0)
+        {
+            isShooting = false;
+            foreach (var ball in balls)
+            {
+                ball.GetComponent<Rigidbody2D>().AddForce(-direction * 700);
+                yield return new WaitForSeconds(delay);
+            }
+        }
 
         //Debug.Log("boop");
         //DisableDrag();
 
-        foreach (var ball in balls)
-        {
-            ball.GetComponent<Rigidbody2D>().AddForce(-direction * 700);
-            yield return new WaitForSeconds(delay);
-        }
+        //foreach (var ball in balls)
+        //{
+        //    ball.GetComponent<Rigidbody2D>().AddForce(-direction * 700);
+        //    yield return new WaitForSeconds(delay);
+        //}
     }
 
     public void EnableDrag()

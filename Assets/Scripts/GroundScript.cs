@@ -25,6 +25,12 @@ public class Ground : MonoBehaviour
             GameManager.Instance.gameover();
         }
 
+        //BoxCollider2D boxCollider = this.GetComponent<BoxCollider2D>();
+        //if (boxCollider != null && boxCollider.bounds.Intersects(collision.collider.bounds))
+        //{
+        //    Debug.Log("The objects overlap!The objects overlap!The objects overlap!The objects overlap!The objects overlap!The objects overlap!");
+        //}
+
         if (hitObject.name.Contains("Ball"))
         {
             hitRB.velocity = Vector3.zero;
@@ -39,10 +45,10 @@ public class Ground : MonoBehaviour
             firstHit =  hitObject.transform.position;
             Debug.Log("first hit: " + firstHit);
         }
-        Debug.Log(hitCount + "ball(s) hit the ground out of" + ballLauncher.getBallCount());
+        //Debug.Log(hitCount + "ball(s) hit the ground out of" + ballLauncher.getBallCount());
         if (hitCount == ballLauncher.getBallCount())
         {
-            Debug.Log("all hit ground");
+            //Debug.Log("all hit ground");
             //end turn
             GameManager.Instance.endTurn(firstHit);
         }

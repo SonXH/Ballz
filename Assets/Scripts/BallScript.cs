@@ -10,6 +10,7 @@ public class Ball : MonoBehaviour
     [SerializeField]
     private Rigidbody2D rigidbody2d;
 
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -17,8 +18,20 @@ public class Ball : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         rigidbody2d.velocity  *= moveSpeed;
+    }
+    private void Update()
+    {
+        float absy = Mathf.Abs(rigidbody2d.velocity.y);
+        if(absy < 0.1f)
+        {
+            int chance = UnityEngine.Random.Range(1, 2);
+
+            float y = chance == 1 ? 0.1f : -0.1f;
+
+            rigidbody2d.velocity.Set(rigidbody2d.velocity.x,y);
+        }
     }
 }
