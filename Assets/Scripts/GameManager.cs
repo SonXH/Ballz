@@ -11,19 +11,23 @@ public class GameManager : MonoBehaviour
     private BallLauncher ballLauncher;
     private Ground ground;
     private BlockSpawner blockSpawner;
+    private ScoreUI scoreUI;
+    private BallsUI ballsUI;
+
     private int score;
     private float time;
 
     private void Awake()
     {
-        Canvas canvas = FindAnyObjectByType<Canvas>();
-      
         score = 1;
 
         // If there is an instance, and it's not me, delete myself.
         ballLauncher = FindFirstObjectByType<BallLauncher>();
         ground = FindObjectOfType<Ground>();
         blockSpawner = FindObjectOfType<BlockSpawner>();
+
+        scoreUI = FindObjectOfType<ScoreUI>();
+        ballsUI = FindObjectOfType<BallsUI>();
 
         if (Instance != null && Instance != this)
         {
@@ -53,6 +57,7 @@ public class GameManager : MonoBehaviour
 
     public void startGame()
     {
+        ballsUI.UpdateBallsUI(ballLauncher.BallCount());
         blockSpawner.SpawnBlocks();
         ballLauncher.EnableDrag();
         
@@ -89,6 +94,7 @@ public class GameManager : MonoBehaviour
 
 
         score++;
+        scoreUI.UpdateScoreUI(score);
         startGame();
 
         // blocks shifted down, blocks spawning 

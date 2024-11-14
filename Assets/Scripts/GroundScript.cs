@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -17,7 +18,9 @@ public class Ground : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
 
-        GameObject hitObject = collision.gameObject;
+        //GameObject hitObject = collision.gameObject;
+        Ball hitObject = collision.gameObject.GetComponent<Ball>();
+
         Rigidbody2D hitRB = hitObject.GetComponent<Rigidbody2D>();
 
         if (hitObject.name.Contains("Block"))
@@ -35,6 +38,7 @@ public class Ground : MonoBehaviour
         {
             hitRB.velocity = Vector3.zero;
             hitRB.angularVelocity = 0f;
+            hitObject.switchflying();
             //hitObject.SetActive(false);
             hitCount++;
             //GameManager.Instance.gameover();

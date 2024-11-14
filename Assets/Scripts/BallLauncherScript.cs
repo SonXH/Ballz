@@ -23,6 +23,8 @@ public class BallLauncher : MonoBehaviour
 
     private bool isShooting;
 
+    private bool collectedItem;
+
     void Awake()
     {
         allowDrag = false;
@@ -43,6 +45,11 @@ public class BallLauncher : MonoBehaviour
     {
         //Debug.Log("prepping");
         //createBall();
+        if(collectedItem)
+        {
+            createBall();
+            collectedItem = false;
+        }
         transform.position = launcherPos;
 
         Vector3 newPos = new Vector3(launcherPos.x, -4f,  launcherPos.z);
@@ -78,7 +85,7 @@ public class BallLauncher : MonoBehaviour
     public int getBallCount() => ballCount;
     
     
-    public void createBall()
+    private void createBall()
     {
         var ball = Instantiate(ballPrefab, transform.position, Quaternion.identity);
         ballCount++;
@@ -120,14 +127,16 @@ public class BallLauncher : MonoBehaviour
     {
         Vector3 direction = endPoint - startPoint;
         direction.Normalize();
+        isShooting = true;
 
-        GameManager.Instance.shooting();
+        
         if(-direction.y > 0)
         {
-            isShooting = true;
+            GameManager.Instance.shooting();
             foreach (var ball in balls)
             {
                 ball.GetComponent<Rigidbody2D>().AddForce(-direction * 700);
+                ball.switchflying();
                 yield return new WaitForSeconds(delay);
             }
             isShooting = false;
@@ -154,5 +163,12 @@ public class BallLauncher : MonoBehaviour
     }
 
     public bool IsShooting() => isShooting;
+
+    public int BallCount() => ballCount;
+
+    public void switchCollectedItem()
+    {
+        collectedItem = !collectedItem;
+    }
 
 }

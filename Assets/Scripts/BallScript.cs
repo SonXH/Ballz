@@ -12,10 +12,13 @@ public class Ball : MonoBehaviour
 
     BallLauncher launcher;
 
+    private bool flying;
+
     // Start is called before the first frame update
     void Awake()
     {
         launcher = FindAnyObjectByType<BallLauncher>();
+        flying = false;
     }
 
     // Update is called once per frame
@@ -29,9 +32,9 @@ public class Ball : MonoBehaviour
         //Debug.Log(launcher.IsShooting());
         float absy = Mathf.Abs(rigidbody2d.velocity.y);
         
-        if (absy < 0.1f && launcher.IsShooting())
+        if (absy < 0.1f && flying)
         {
-            Debug.Log("son");
+            Debug.Log(rigidbody2d.velocity.y);
             
             int chance = UnityEngine.Random.Range(1, 2);
 
@@ -40,8 +43,15 @@ public class Ball : MonoBehaviour
 
             //float y = 0.1f;
 
-            rigidbody2d.velocity = new Vector2(rigidbody2d.velocity.x, rigidbody2d.velocity.y + y);
+            rigidbody2d.velocity = new Vector2(rigidbody2d.velocity.x, y);
+
+            Debug.Log(y);
         }
         
+    }
+
+    public void switchflying()
+    {
+        flying = !flying;
     }
 }
