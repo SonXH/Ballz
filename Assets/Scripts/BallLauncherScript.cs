@@ -25,6 +25,11 @@ public class BallLauncher : MonoBehaviour
 
     private int collectedItems = 0;
 
+
+    private float scatterCooldown = 2f; // Cooldown duration in seconds
+    private bool isCooldownActive = false;
+
+
     void Awake()
     {
         allowDrag = false;
@@ -173,12 +178,32 @@ public class BallLauncher : MonoBehaviour
         collectedItems++;
     }
 
+    //public void scatterBalls()
+    //{
+    //    foreach (var ball in balls)
+    //    {
+    //        ball.scatter();
+    //    }
+    //}
+
     public void scatterBalls()
     {
-        foreach (var ball in balls)
+        if (!isCooldownActive && !isShooting)
         {
-            ball.scatter();
+            foreach (var ball in balls)
+            {
+                ball.scatter();
+            }
+
+            // Start cooldown
+            isCooldownActive = true;
+            Invoke("ResetCooldown", scatterCooldown);
         }
+    }
+
+    private void ResetCooldown()
+    {
+        isCooldownActive = false;
     }
 
 }
