@@ -26,7 +26,7 @@ public class BallLauncher : MonoBehaviour
     private int collectedItems = 0;
 
 
-    private float scatterCooldown = 2f; // Cooldown duration in seconds
+    private float scatterCooldown = 4f; // Cooldown duration in seconds
     private bool isCooldownActive = false;
 
 

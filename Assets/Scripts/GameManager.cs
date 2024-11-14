@@ -46,14 +46,7 @@ public class GameManager : MonoBehaviour
     }
 
 
-    private enum GameState
-    {
-        Menu,
-        Start,
-        Shot,
-        Pause,
-        Loss 
-    }
+
 
     public void startGame()
     {
