@@ -23,7 +23,7 @@ public class BallLauncher : MonoBehaviour
 
     private bool isShooting;
 
-    private bool collectedItem;
+    private int collectedItems = 0;
 
     void Awake()
     {
@@ -45,12 +45,14 @@ public class BallLauncher : MonoBehaviour
     {
         //Debug.Log("prepping");
         //createBall();
-        if(collectedItem)
+        transform.position = launcherPos;
+        
+        for (int i = 0; i < collectedItems; i++)
         {
             createBall();
-            collectedItem = false;
         }
-        transform.position = launcherPos;
+        collectedItems = 0;
+
 
         Vector3 newPos = new Vector3(launcherPos.x, -4f,  launcherPos.z);
 
@@ -166,9 +168,17 @@ public class BallLauncher : MonoBehaviour
 
     public int BallCount() => ballCount;
 
-    public void switchCollectedItem()
+    public void ItemIncrement()
     {
-        collectedItem = !collectedItem;
+        collectedItems++;
+    }
+
+    public void scatterBalls()
+    {
+        foreach (var ball in balls)
+        {
+            ball.scatter();
+        }
     }
 
 }

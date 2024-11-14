@@ -5,10 +5,10 @@ using UnityEngine;
 public class Ball : MonoBehaviour
 {
 
-    float rotationSpeed = 90f;
+    //float rotationSpeed = 90f;
 
     [SerializeField]
-    private float moveSpeed = 10;
+    private float moveSpeed = 10f;
 
     [SerializeField]
     private Rigidbody2D rigidbody2d;
@@ -27,7 +27,9 @@ public class Ball : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        rigidbody2d.velocity  *= moveSpeed;
+        //rigidbody2d.velocity  *= moveSpeed;
+
+        rigidbody2d.velocity *= moveSpeed;
     }
     private void Update()
     {
@@ -50,14 +52,25 @@ public class Ball : MonoBehaviour
 
             Debug.Log(y);
         }
-        if (flying)
-        {
-            transform.Rotate(0, 0, -rotationSpeed * Time.deltaTime);
-        }
+        
+        //if (flying)
+        //{
+        //    transform.Rotate(0, 0, -rotationSpeed * Time.deltaTime);
+        //}
     }
 
     public void switchflying()
     {
         flying = !flying;
+    }
+
+    public void scatter()
+    {
+        if (flying)
+        {
+            Vector2 randomDirection = Random.insideUnitCircle.normalized;
+            rigidbody2d.velocity = randomDirection * moveSpeed;
+            rigidbody2d.AddForce(randomDirection * 700);
+        }
     }
 }
