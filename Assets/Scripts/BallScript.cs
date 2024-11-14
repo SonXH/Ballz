@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
+
+    float rotationSpeed = 90f;
+
     [SerializeField]
     private float moveSpeed = 10;
 
@@ -47,7 +50,10 @@ public class Ball : MonoBehaviour
 
             Debug.Log(y);
         }
-        
+        if (flying)
+        {
+            transform.Rotate(0, 0, -rotationSpeed * Time.deltaTime);
+        }
     }
 
     public void switchflying()
