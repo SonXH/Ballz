@@ -7,8 +7,8 @@ public class Ball : MonoBehaviour
 
     //float rotationSpeed = 90f;
 
-    [SerializeField]
-    private float moveSpeed = 10f;
+    //[SerializeField]
+    //private float moveSpeed = 10f;
 
     [SerializeField]
     private Rigidbody2D rigidbody2d;
@@ -29,7 +29,7 @@ public class Ball : MonoBehaviour
     {
         //rigidbody2d.velocity  *= moveSpeed;
 
-        rigidbody2d.velocity *= moveSpeed;
+        //rigidbody2d.velocity *= moveSpeed;
     }
     private void Update()
     {
@@ -58,7 +58,7 @@ public class Ball : MonoBehaviour
         //    transform.Rotate(0, 0, -rotationSpeed * Time.deltaTime);
         //}
     }
-
+    public bool getFlying() => flying;
     public void switchflying()
     {
         flying = !flying;
@@ -69,8 +69,8 @@ public class Ball : MonoBehaviour
         if (flying)
         {
             Vector2 randomDirection = Random.insideUnitCircle.normalized;
-            rigidbody2d.velocity = randomDirection * moveSpeed;
-            rigidbody2d.AddForce(randomDirection * 700);
+            //rigidbody2d.velocity = randomDirection * moveSpeed;
+            rigidbody2d.AddForce(randomDirection * 750);
         }
     }
 }

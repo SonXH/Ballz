@@ -24,4 +24,9 @@ public class TimeController : MonoBehaviour
     {
         Time.timeScale = 1f;
     }
+
+    public void stopTime()
+    {
+        Time.timeScale = 0f;
+    }
 }

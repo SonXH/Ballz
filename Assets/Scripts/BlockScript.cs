@@ -7,12 +7,14 @@ public class Block : MonoBehaviour
 {
     private int blockLives;
     private TextMeshPro text;
+    private SpriteRenderer spriteRenderer;
 
 
     // Start is called before the first frame update
     void Awake ()
     {
         text = GetComponentInChildren<TextMeshPro>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         blockLives = GameManager.Instance.GetScore;
         UpdateVisual();
     }
@@ -21,6 +23,7 @@ public class Block : MonoBehaviour
     private void UpdateVisual()
     {
         text.SetText(blockLives.ToString());
+        spriteRenderer.color = Color.Lerp(Color.white, Color.red, blockLives / 50f);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

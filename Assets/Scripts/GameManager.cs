@@ -29,7 +29,8 @@ public class GameManager : MonoBehaviour
         scoreUI = FindObjectOfType<ScoreUI>();
         ballsUI = FindObjectOfType<BallsUI>();
 
-        if (Instance != null && Instance != this)
+        if (
+            Instance != null && Instance != this)
         {
             Destroy(this);
         }
