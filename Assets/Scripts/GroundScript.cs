@@ -20,8 +20,10 @@ public class Ground : MonoBehaviour
 
         //GameObject hitObject = collision.gameObject;
         Ball hitObject = collision.gameObject.GetComponent<Ball>();
+        if (hitObject == null) return; // Exit if the object is not a Ball
 
         Rigidbody2D hitRB = hitObject.GetComponent<Rigidbody2D>();
+        if (hitRB == null) return; // Ensure Rigidbody2D exists
 
         if (hitObject.name.Contains("Block"))
         {

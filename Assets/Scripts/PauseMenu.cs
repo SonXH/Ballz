@@ -8,6 +8,14 @@ public class PauseMenu : MonoBehaviour
     public GameObject pauseMenu;
 
     public bool isPaused;
+
+    AudioManager audioManager;
+
+
+    void Awake()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -29,7 +37,6 @@ public class PauseMenu : MonoBehaviour
                 pauseGame();
             }
         }
-        
     }
 
     public void pauseGame()
@@ -38,6 +45,8 @@ public class PauseMenu : MonoBehaviour
         TimeController tc = FindAnyObjectByType<TimeController>();
         tc.stopTime();
         isPaused = true;
+
+        audioManager.PlayPauseMusic();
     }
 
     public void resumeGame()
@@ -46,6 +55,8 @@ public class PauseMenu : MonoBehaviour
         TimeController tc = FindAnyObjectByType<TimeController>();
         tc.Time1();
         isPaused = false;
+
+        audioManager.ResumeBackgroundMusic();
     }
 
     public void BackToMainMenu()

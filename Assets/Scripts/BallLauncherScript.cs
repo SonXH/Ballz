@@ -195,41 +195,57 @@ public class BallLauncher : MonoBehaviour
     //    }
     //}
 
+    //public void scatterBalls()
+    //{
+    //    if(isCooldownActive||allowDrag)return;
+
+
+    //    isCooldownActive = true; // Set cooldown to active
+    //    foreach (var ball in balls)
+    //    {
+    //        if (ball.getFlying())
+    //        {
+    //            ball.scatter();
+    //        }
+    //    }
+
+    //    Debug.Log("ScatterBalls called. isShooting: " + isShooting + ", allowDrag: " + allowDrag);
+
+    //    StartCoroutine(ResetCooldownAfterDelay());
+    //}
+
     public void scatterBalls()
     {
-        //if (!isCooldownActive)
-        //{
-        //    foreach (var ball in balls)
-        //    {
-        //        if (ball.getFlying())
-        //        {
-        //            ball.scatter();
-        //        }
-
-        //    }
-
-        //    // Start cooldown
-        //    isCooldownActive = true;
-        //    StartCoroutine(ResetCooldownAfterDelay());
-        //}
-
-        if(isCooldownActive||allowDrag)return;
-
+        // Check if the cooldown or drag is active
+        if (isCooldownActive || allowDrag) return;
 
         isCooldownActive = true; // Set cooldown to active
+
+        // Create a temporary list of flying balls
+        List<Ball> flyingBalls = new List<Ball>();
+
+        // Add flying balls to the temporary list
         foreach (var ball in balls)
         {
             if (ball.getFlying())
             {
-                ball.scatter();
+                flyingBalls.Add(ball);
             }
+        }
+
+        // Scatter all the flying balls
+        foreach (var ball in flyingBalls)
+        {
+            ball.scatter();
         }
 
         Debug.Log("ScatterBalls called. isShooting: " + isShooting + ", allowDrag: " + allowDrag);
 
+        // Start the cooldown coroutine
         StartCoroutine(ResetCooldownAfterDelay());
     }
-      
+
+
     private IEnumerator ResetCooldownAfterDelay()
     {
         Debug.Log("Cooldown active. Waiting...");
