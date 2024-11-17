@@ -85,11 +85,6 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(2);
     }
 
-    public void pauseGame()
-    {
-        Debug.Log("pee pause");
-
-    }
 
     public int GetScore => score;
     public float GetTime => time;
