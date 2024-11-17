@@ -54,30 +54,17 @@ public class GameManager : MonoBehaviour
         ballsUI.UpdateBallsUI(ballLauncher.BallCount());
         blockSpawner.SpawnBlocks();
         ballLauncher.EnableDrag();
-        
-        Debug.Log("game started: " + ballLauncher.getBallCount());
-        //can drag, ball launcher in use
-        //state to shooting
 
         time = Time.time;
     }
 
     public void shooting()
     {
-
         ballLauncher.DisableDrag();
-
-
-        Debug.Log("shooting balls");
-        //balls shooting, no drag 
-        //state to start until loss
     }
 
     public void endTurn(Vector3 firstHit)
     {
-
-        
-        Debug.Log("turn ended");
 
         TimeController tc = FindAnyObjectByType<TimeController>();
         tc.Time1();
@@ -90,25 +77,18 @@ public class GameManager : MonoBehaviour
         score++;
         scoreUI.UpdateScoreUI(score);
         startGame();
-
-        // blocks shifted down, blocks spawning 
-        //display switch to game over screen
     }
 
     public void gameover()
     {
-        Debug.Log("maybe next time you are also in the winning team. you loser losing like a never winning human being");
-
+       
         SceneManager.LoadScene(2);
-        //display mean message
-        //options for restart
     }
 
     public void pauseGame()
     {
         Debug.Log("pee pause");
-        //display pause screen
-        //options resume and restart
+
     }
 
     public int GetScore => score;

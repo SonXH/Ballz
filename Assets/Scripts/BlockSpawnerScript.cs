@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
-using static UnityEditor.PlayerSettings;
 
 public class BlockSpawner : MonoBehaviour
 {
@@ -21,7 +20,6 @@ public class BlockSpawner : MonoBehaviour
 
     public void SpawnBlocks()
     {
-        //Debug.Log("spawning");
 
         // Shift existing blocks down
         shiftBlocks();
@@ -50,8 +48,6 @@ public class BlockSpawner : MonoBehaviour
             if (i != itemIndex && (UnityEngine.Random.Range(0, 100) <= 33 || !blockSpawned))
             {
                 // Calculate the position for each block in the row
-                
-
                 var block = Instantiate(blockPrefab, pos, Quaternion.identity);
 
                 int chance = UnityEngine.Random.Range(1,4);
@@ -75,7 +71,7 @@ public class BlockSpawner : MonoBehaviour
         blocks.RemoveAll(block => block == null);
         items.RemoveAll(item => item == null);
 
-        foreach (var block in blocks)
+        foreach (Block block in blocks)
         {
             if (blocks != null)
             {
@@ -87,17 +83,11 @@ public class BlockSpawner : MonoBehaviour
                 }
             }
         }
-        foreach (var item in items)
+        foreach (Item item in items)
         {
             if (item != null)
             {
                 item.transform.position += Vector3.down * padding;
-
-                // Check if any item goes below the game boundary
-                if (item.transform.position.y <= -3)
-                {
-                    Destroy(item);
-                }
             }
         }
     }

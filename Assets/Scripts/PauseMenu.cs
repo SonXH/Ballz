@@ -7,16 +7,21 @@ public class PauseMenu : MonoBehaviour
 {
     public GameObject pauseMenu;
 
-    public bool isPaused;
+    public GameObject pauseButton;
+
+    private bool isPaused;
 
     AudioManager audioManager;
 
+    BallLauncher ballLauncher;
 
     void Awake()
     {
+        ballLauncher = FindObjectOfType<BallLauncher>();
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
     // Start is called before the first frame update
+
     void Start()
     {
         pauseMenu.SetActive(false);
@@ -27,7 +32,6 @@ public class PauseMenu : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape)){
 
-            Debug.Log("Escape key pressed!");
             if (isPaused)
             {
                 resumeGame();
@@ -41,10 +45,16 @@ public class PauseMenu : MonoBehaviour
 
     public void pauseGame()
     {
+        
+        
         pauseMenu.SetActive(true);
         TimeController tc = FindAnyObjectByType<TimeController>();
         tc.stopTime();
         isPaused = true;
+        pauseButton.SetActive(false);
+        
+        
+
 
         audioManager.PlayPauseMusic();
     }
@@ -55,6 +65,8 @@ public class PauseMenu : MonoBehaviour
         TimeController tc = FindAnyObjectByType<TimeController>();
         tc.Time1();
         isPaused = false;
+        pauseButton.SetActive(true);   
+        
 
         audioManager.ResumeBackgroundMusic();
     }

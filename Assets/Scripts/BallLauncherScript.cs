@@ -39,20 +39,8 @@ public class BallLauncher : MonoBehaviour
         createBall();
     }
 
-    private void Start()
-    {
-        //for (int i = 0; i < ballCount; i++)
-        //{
-        //    createBall();
-        //}
-        Debug.Log($"Initial State - isShooting: {isShooting}, allowDrag: {allowDrag}, isCooldownActive: {isCooldownActive}");
-    }
-
-
     public void PrepTurn(Vector3 launcherPos)
     {
-        //Debug.Log("prepping");
-        //createBall();
         transform.position = launcherPos;
 
         for (int i = 0; i < collectedItems; i++)
@@ -64,6 +52,7 @@ public class BallLauncher : MonoBehaviour
 
         Vector3 newPos = new Vector3(launcherPos.x, -4f, launcherPos.z);
 
+        //shift all balls to the launcher
         foreach (var ball in balls)
         {
             ball.transform.position = launcherPos;
@@ -76,7 +65,7 @@ public class BallLauncher : MonoBehaviour
     {
         Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition) + Vector3.back * -10;
 
-        if (allowDrag)
+        if (allowDrag && Time.timeScale!=0)
         {
             if (Input.GetMouseButtonDown(0))
             {
@@ -119,7 +108,6 @@ public class BallLauncher : MonoBehaviour
 
         Vector3 direction = endPoint - startPoint;
 
-
         line.SetEnd(transform.position - direction);
 
     }
@@ -132,8 +120,6 @@ public class BallLauncher : MonoBehaviour
         {
             StartCoroutine(LaunchBall());
         }
-
-
     }
 
     private IEnumerator LaunchBall()
@@ -145,7 +131,7 @@ public class BallLauncher : MonoBehaviour
         isShooting = true;
 
 
-        if (-direction.y > 0)
+        if (-direction.y > 0) // only shoot upwards
         {
             GameManager.Instance.shooting();
             foreach (var ball in balls)
@@ -156,27 +142,19 @@ public class BallLauncher : MonoBehaviour
             }
         }
         isShooting = false;
-        //Debug.Log("boop");
-        //DisableDrag();
-
-        //foreach (var ball in balls)
-        //{
-        //    ball.GetComponent<Rigidbody2D>().AddForce(-direction * 700);
-        //    yield return new WaitForSeconds(delay);
-        //}
     }
 
     public void EnableDrag()
     {
         allowDrag = true;
-        Debug.Log("Drag Enabled");
     }
 
     public void DisableDrag()
     {
         allowDrag = false;
-        Debug.Log("Drag Disabled");
     }
+
+    public bool AllowDrag() => allowDrag;
 
     public bool IsShooting() => isShooting;
 
@@ -186,33 +164,6 @@ public class BallLauncher : MonoBehaviour
     {
         collectedItems++;
     }
-
-    //public void scatterBalls()
-    //{
-    //    foreach (var ball in balls)
-    //    {
-    //        ball.scatter();
-    //    }
-    //}
-
-    //public void scatterBalls()
-    //{
-    //    if(isCooldownActive||allowDrag)return;
-
-
-    //    isCooldownActive = true; // Set cooldown to active
-    //    foreach (var ball in balls)
-    //    {
-    //        if (ball.getFlying())
-    //        {
-    //            ball.scatter();
-    //        }
-    //    }
-
-    //    Debug.Log("ScatterBalls called. isShooting: " + isShooting + ", allowDrag: " + allowDrag);
-
-    //    StartCoroutine(ResetCooldownAfterDelay());
-    //}
 
     public void scatterBalls()
     {
@@ -239,8 +190,6 @@ public class BallLauncher : MonoBehaviour
             ball.scatter();
         }
 
-        Debug.Log("ScatterBalls called. isShooting: " + isShooting + ", allowDrag: " + allowDrag);
-
         // Start the cooldown coroutine
         StartCoroutine(ResetCooldownAfterDelay());
     }
@@ -248,10 +197,8 @@ public class BallLauncher : MonoBehaviour
 
     private IEnumerator ResetCooldownAfterDelay()
     {
-        Debug.Log("Cooldown active. Waiting...");
         yield return new WaitForSeconds(scatterCooldown);
         isCooldownActive = false; // Reset cooldown
-        Debug.Log("Cooldown reset. Scatter can be used again.");
     }
 
     private void OnDrawGizmos()
