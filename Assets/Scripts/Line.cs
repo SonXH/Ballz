@@ -13,11 +13,16 @@ public class Line : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        LineRenderer.GetComponent<Rigidbody2D>();
-        LineRenderer.material.color = Color.black;
+        //LineRenderer.material.color = Color.black;
 
-        // Hide the line initially
-        LineRenderer.enabled = false;
+        //// Hide the line initially
+        //LineRenderer.enabled = false;
+
+        LineRenderer.material = new Material(Shader.Find("Sprites/Default")); // Ensure a default shader
+        LineRenderer.material.color = Color.black; // Set initial color
+        LineRenderer.startColor = Color.black;
+        LineRenderer.endColor = Color.black;
+        LineRenderer.enabled = false; // Hide the line initially
     }
 
     // Method to set the start point of the line
