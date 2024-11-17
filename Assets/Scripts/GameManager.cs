@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class GameManager : MonoBehaviour
     private BallsUI ballsUI;
 
     private int score;
+    [SerializeField]
+    private TextMeshProUGUI highscore;
     private float time;
 
     private void Awake()
@@ -43,6 +46,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        highscore.SetText(PlayerPrefs.GetInt("HighScore", 0).ToString());
         startGame();    
     }
 
@@ -81,10 +85,14 @@ public class GameManager : MonoBehaviour
 
     public void gameover()
     {
-       
+        PlayerPrefs.SetInt("Score", score);
+        if(score>PlayerPrefs.GetInt("HighScore", 0))
+        {
+            PlayerPrefs.SetInt("HighScore", score);
+        }
+
         SceneManager.LoadScene(2);
     }
-
 
     public int GetScore => score;
     public float GetTime => time;
