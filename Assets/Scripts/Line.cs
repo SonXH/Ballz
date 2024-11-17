@@ -8,6 +8,7 @@ public class Line : MonoBehaviour
     private Vector3 startpoint;
     private bool startSet = false;
     private bool endSet = false;
+    private float maxLineLength = 8f;
 
     // Start is called before the first frame update
     void Awake()
@@ -34,6 +35,13 @@ public class Line : MonoBehaviour
     public void SetEnd(Vector3 vector)
     {
         Vector3 direction = vector - startpoint;
+
+        if (direction.magnitude > maxLineLength)
+        {
+            direction = direction.normalized * maxLineLength;
+        }
+
+
         Vector3 endPoint = transform.position + direction;
 
         LineRenderer.SetPosition(1, endPoint);
