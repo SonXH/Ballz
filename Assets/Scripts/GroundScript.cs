@@ -24,10 +24,10 @@ public class Ground : MonoBehaviour
         Rigidbody2D hitRB = hitObject.GetComponent<Rigidbody2D>();
         if (hitRB == null) return; // Ensure Rigidbody2D exists
 
-        if (hitObject.name.Contains("Block"))
-        {
-            GameManager.Instance.gameover();
-        }
+        //if (hitObject.name.Contains("Block"))
+        //{
+        //    GameManager.Instance.gameover();
+        //}
 
         if (hitObject.name.Contains("Ball"))
         {

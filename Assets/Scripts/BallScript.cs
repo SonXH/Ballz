@@ -60,6 +60,11 @@ public class Ball : MonoBehaviour
     public void switchflying()
     {
         flying = !flying;
+        if (!flying)
+        {
+            // If the ball stops flying, reset its velocity to prevent undesired movement
+            rigidbody2d.velocity = Vector2.zero;
+        }
     }
 
     public void scatter()
